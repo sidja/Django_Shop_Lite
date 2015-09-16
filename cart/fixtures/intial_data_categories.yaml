@@ -1,0 +1,3 @@
+- fields: {category_image: solar.jpg, category_name: Solar Panels, category_url: www.solar.com}
+  model: shop.categories
+  pk: 2

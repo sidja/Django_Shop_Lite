@@ -1,0 +1,289 @@
+{% load i18n admin_static bootstrapped_goodies_tags %}
+{% load staticfiles %}
+{% load i18n admin_urls admin_static admin_list bootstrapped_goodies_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Django Shop Lite</title>
+  <link rel="stylesheet" type="text/css" href="../../../static/assets/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../../static/assets/css/keen-dashboards.css" />
+</head>
+<body class="application">
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <!--
+      <a class="navbar-brand" href="../">
+
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+    -->
+    <a class="navbar-brand" href="./">Django Shop Lite</a>
+    </div>
+    <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav navbar-left">
+      <li><a href="https://keen.io">Home</a></li>
+      <li><a href="https://keen.io/team">Team</a></li>
+      <li><a href="https://github.com/keenlabs/dashboards/tree/gh-pages/layouts/hero-sidebar">Source</a></li>
+      <li><a href="https://groups.google.com/forum/#!forum/keen-io-devs">Community</a></li><li><a href="http://stackoverflow.com/questions/tagged/keen-io?sort=newest&pageSize=15">Technical Support</a></li>
+
+    
+    
+
+
+
+    </ul>
+
+    </div>
+  </div>
+  </div>
+
+  <div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-3">
+    <h3>Dashboard</h3>
+    <div class="tabbable">
+      {% for app in app_list %}
+        <!--
+        {% include "admin/bootstrapped_extra/app_name.html" %}
+        -->
+        {% render_app_description app %}
+        <table summary="{% blocktrans with name=app.name %}Models available in the {{ name }} application.{% endblocktrans %}" class="table table-striped table-bordered">
+        {% for model in app.models %}
+          <tr>
+            <th scope="row">
+              {% if model.admin_url %}
+              <a href="{{ model.admin_url }}">{{ model.name }}</a>
+              {% else %}
+              {{ model.name }}
+              {% endif %}
+
+              {% if model.add_url or model.admin_url%}
+              <div class="pull-right">
+               
+              </div>
+              {% endif %}
+            </th>
+          </tr>
+        {% endfor %}
+        </table>
+      {% empty %}
+        <p>{% trans "You don't have permission to edit anything." %}</p>
+      {% endfor %}
+    </div>
+    </div>
+    <div class="col-sm-9">
+    <div class="row">
+      <div class="col-sm-12">
+
+      {% if not is_popup %}
+{% block breadcrumbs %}
+<ul class="breadcrumb">
+<li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+<!--<li><a href="{% url 'admin:app_list' app_label=cl.opts.app_label %}">{% render_with_template_if_exist app_label|lower|add:"/admin_app_name.html" app_label %}</a></li>-->
+<li><a href="{% url 'admin:app_list' app_label=cl.opts.app_label %}">{% with app_label=cl.opts.app_config.verbose_name|default:cl.opts.app_label %}{{ app_label|title }}{% endwith %}</a></li>
+<li>{{ cl.opts.verbose_name_plural|capfirst }}</li>
+</ul>
+{% endblock %}
+{% endif %}
+
+
+      <div class="chart-wrapper">
+        <div class="chart-title">
+        Cell Title
+        </div>
+        <div class="chart-stage">
+
+
+
+{% block content %}
+<form class="" id="changelist-form" action="" method="post"{% if cl.formset.is_multipart %} enctype="multipart/form-data"{% endif %} novalidate>{% csrf_token %}
+
+{% if cl.formset.errors %}
+<div class="alert alert-danger">
+    <p class="errornote">
+        {% if cl.formset.errors|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+    </p>
+    {{ cl.formset.non_form_errors }}
+</div>
+{% endif %}
+
+
+{% with app_name=cl.opts.model_name|lower|slugify %}
+    {% render_with_template_if_exist cl.opts.app_label|lower|add:"/admin_app_"|add:app_name|add:"_description.html" "" %}
+{% endwith %}
+
+{% if action_form and actions_on_top and cl.show_admin_actions %}
+<div class='pull-left'>{% admin_actions %}</div>
+{% endif %}
+
+<div id="content-main">
+    <div class="module{% if cl.has_filters %} filtered{% endif %}" id="_changelist">
+        {% block date_hierarchy %}
+            {% date_hierarchy cl %}
+        {% endblock %}
+
+        {% if cl.formset %}
+            <div>{{ cl.formset.management_form }}</div>
+        {% endif %}
+
+        {% block result_list %}
+            {% result_list cl %}
+        {% endblock %}
+    </div>
+</div>
+{# {% if cl.formset and cl.result_count %} #}
+<div class="navbar navbar-default">
+    <div class="navbar-inner">
+        <div class="navbar-form pull-left">
+            {% if action_form and actions_on_bottom and cl.show_admin_actions %}
+                {% admin_actions %}
+            {% endif %}
+        </div>
+{% if cl.formset and cl.result_count %}
+        <div class="navbar-form pull-right">
+            <input type="submit" name="_save" class="btn btn-primary default" value="{% trans 'Save' %}"/>
+        </div>
+{% endif %}
+    </div>
+</div>
+{# {% endif %} #}
+
+{% block pagination %}
+    {% pagination cl %}
+{% endblock %}
+</form>
+{% endblock %}
+
+
+        
+
+
+
+
+
+
+
+
+        </div>
+        <div class="chart-notes">
+        Notes about this chart
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+      <div class="chart-wrapper">
+        <div class="chart-title">
+        Cell Title
+        </div>
+        <div class="chart-stage">
+        <img data-src="holder.js/100%x120/white">
+        </div>
+        <div class="chart-notes">
+        Notes about this chart
+        </div>
+      </div>
+      </div>
+      <div class="col-sm-4">
+      <div class="chart-wrapper">
+        <div class="chart-title">
+        Cell Title
+        </div>
+        <div class="chart-stage">
+        <img data-src="holder.js/100%x120/white">
+        </div>
+        <div class="chart-notes">
+        Notes about this chart
+        </div>
+      </div>
+      </div>
+      <div class="col-sm-4">
+      <div class="chart-wrapper">
+        <div class="chart-title">
+        Cell Title
+        </div>
+        <div class="chart-stage">
+        <img data-src="holder.js/100%x120/white">
+        </div>
+        <div class="chart-notes">
+        Notes about this chart
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+      <div class="chart-wrapper">
+        <div class="chart-title">
+        Cell Title
+        </div>
+        <div class="chart-stage">
+        <img data-src="holder.js/100%x120/white">
+        </div>
+        <div class="chart-notes">
+        Notes about this chart
+        </div>
+      </div>
+      </div>
+      <div class="col-sm-4">
+      <div class="chart-wrapper">
+        <div class="chart-title">
+        Cell Title
+        </div>
+        <div class="chart-stage">
+        <img data-src="holder.js/100%x120/white">
+        </div>
+        <div class="chart-notes">
+        Notes about this chart
+        </div>
+      </div>
+      </div>
+      <div class="col-sm-4">
+      <div class="chart-wrapper">
+        <div class="chart-title">
+        Cell Title
+        </div>
+        <div class="chart-stage">
+        <img data-src="holder.js/100%x120/white">
+        </div>
+        <div class="chart-notes">
+        Notes about this chart
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>
+
+
+
+  <hr>
+
+  <p class="small text-muted">Built with &#9829; by <a href="https://keen.io">Keen IO</a></p>
+
+  </div>
+
+  <script type="text/javascript" src="../../../static/assets/lib/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="../../../static/assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="../../../static/assets/lib/holderjs/holder.js"></script>
+  <script>
+  Holder.add_theme("white", { background:"#fff", foreground:"#a7a7a7", size:10 });
+  </script>
+
+  <script type="text/javascript" src="../../../static/assets/lib/keen-js/dist/keen.min.js"></script>
+  <script type="text/javascript" src="../../../static/assets/js/meta.js"></script>
+
+</body>
+</html>

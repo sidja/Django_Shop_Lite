@@ -1,0 +1,32 @@
+
+{%if cart.cart.is_empty or request.path == "/cart/" %}
+
+<div class="cart_block container">
+        <div class="  col-md-10"></div>
+        <div class="cart_icon col-xs-push-8 col-md-2">
+            
+            <div class="empty_cart_block"></div>
+            
+        </div>
+       
+</div>
+
+{% else %}
+<div class="cart_block container">
+        <div class="  col-md-10"></div>
+
+        <a href="{% url 'cart' %}">
+
+        <div class="cart_icon col-xs-push-8 col-md-2">
+            
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-square fa-stack-2x"></i>
+                <i class="fa fa-shopping-cart fa-stack-1x "></i>
+                
+            </span>        <span class="cart_count" >{{cart.cart.total_cart_quantity|floatformat}}</span>
+        </div>
+        
+        </a>
+</div>
+
+{%endif%}

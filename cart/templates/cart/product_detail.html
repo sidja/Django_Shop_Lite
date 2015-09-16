@@ -1,0 +1,66 @@
+{% extends "shop_base.html" %}
+
+
+
+{% block content %}
+{% load staticfiles %}
+
+<div class="col-md-12">
+<div class="col-md-6">
+    
+    <img style="max-height: 200px; max-width: 200px;" src="{% static ""%}{{ object.image}}" alt="My image"/>
+
+</div>
+<div class="col-md-6">
+    
+    <div class="shop_product_list_title"   >
+    	<h3>{{ object.name }}</h3>
+            
+             {{ product.text }}
+    </div>
+
+    <div class="product_detail_item_price">
+            
+                <i class="fa fa-usd"></i> {{ object.unit_price }}
+    </div>
+    <form action="{%url 'add_to_cart'%}" method="POST" id="" >
+    {% csrf_token %}
+            
+            <input type="hidden" id="csrfmiddlewaretoken" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <input type="hidden" id="product_id" name="product_id" value="{{object.id}}" />
+            <div class="form-group">
+
+              <label class="product_detail_dropdown" for="sel1">Quantity:</label>
+              <select class="form-control" id="quantity" name="quantity">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            
+            </div>
+
+            <div class="shop_product_detail_button" >
+                    <button type="submit" onclick=""  class="btn btn-default btn-block " >
+                    <i class="fa fa-usd"></i> Add to Cart
+                    </button>
+
+            </div>
+    </form>
+ </div>
+
+ </div>
+
+  
+  
+  
+   
+
+ 
+ 
+
+
+
+{% endblock %}
+
+

@@ -1,0 +1,16 @@
+{% extends "shop_base.html" %}
+
+
+<p> Out side block</p>
+{% block content %}
+
+<h2>This is home</h2>
+<p>Inside block</p>
+
+<a class="btn btn-default" href="/products/" role="button">Products</a>
+<h1>{{ question.amount }}</h1>
+<h1>{{ question.count }}</h1>
+
+{% endblock %}
+
+

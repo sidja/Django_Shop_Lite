@@ -1,0 +1,141 @@
+
+<form action="." id="update_cart">
+{% csrf_token %}
+ 
+ <input type="hidden" id="csrfmiddlewaretoken" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+ <div  id="cart_form_inner">
+ <table class="table">
+    
+            <tr>
+                <th>Product</th>
+                
+                <th width="10%">Quantity</th>
+                <th width="30%" align="center" style="text-align:center" >Price</th>
+                <th></th>
+            </tr>
+
+            {% for item in cart %}
+            <tr>
+                
+                <td>{{ item.product.name }}</td>
+                
+                <td  >
+
+                    <input onclick="" id="cart_qty_item_{{item.product.id}}" productid="{{item.product.id}}" type="text" size="1" value="{{ item.quantity|floatformat }}" class="form-control ">
+                
+                </td>
+
+                <td style="text-align:center"><i class="fa fa-usd"></i>{{ item.total_price|floatformat }}</td>
+               
+                
+                <td id="cart_item_remove">  
+                    
+                    <div onclick="remove_cart_item({{item.product.id}})" >
+                        <i class="fa fa-trash-o"></i>
+                    </div>
+                    
+                </td>
+                
+                
+            </tr>
+            {% endfor %}
+        
+    </table>
+</div>
+    
+    <div class="col-md-8  ">
+    </div>
+    
+    <div class="col-md-4  ">
+
+        <div class="control-group">
+        
+            <div class="form-inline refresh_icon  pull-right" id="update_cart_button" type="submit" onclick="" >
+                <button class="btn btn-default" type="submit">
+
+                        <i class="fa fa-refresh"></i> Update Cart
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+    <div class="col-md-12 grey_line ">
+    </div>
+
+        <div class="col-md-8 ">
+            
+            <div class="control-group">
+            <div class="form-inline">
+                <br>
+                <br><b>Calculate Shipping </b>:
+                <br>
+                <from id="shipping_form">
+                {% csrf_token %}
+                    
+                    <input type="hidden" id="csrfmiddlewaretoken_shipping" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <br><input type="text" size="11" id="shipping_to_postcode" value="" placeholder="Enter Postcode" class="form-control">
+                    <br>
+                    <br>
+                    <button type="submit" id="shipping_form_submit" class="btn btn-default">Get Shipping</button>
+                </from>
+                <br><br>
+                <div id="shipping_estimate">
+                
+                </div>
+                <br>
+                 
+            </div>
+           </div>  
+
+
+        </div>
+
+        <div class="col-md-4">
+        <div class="control-group">
+
+            
+            <div class="form-inline cart_total" id="cart_total">
+                <br>
+                <br>
+                <b> Sub-total : <i class="fa fa-usd"></i>{{cart.cart.total_cart_price}}</b>
+                <br>
+                Total Quanity {{cart.cart.total_cart_quantity}}
+                <br>
+            </div>
+
+             <div class="col-md-13 cart_checkout_button">
+
+                    <a href="{%url 'checkout' %}" class="btn btn-primary pull-right">Checkout
+                    </a>
+
+            </div>
+            <div class="col-md-13 cart_paypal_checkout_button ">
+
+                <br>
+                <img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" align="right" style="margin-right:0px;">
+            </div>
+
+        </div>  
+            
+
+
+                
+            
+
+
+        </div>
+
+    
+
+        <div class="container "> 
+
+                <div class="col-md-8"></div>
+
+                
+
+        </div>

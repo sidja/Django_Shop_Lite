@@ -1,0 +1,44 @@
+{% extends 'shop_base.html' %}
+
+
+
+{% block content %}
+{% load staticfiles %}
+
+<div class="shop_product_list_title">
+	<h2>Products</h2>
+</div>
+
+ 
+
+  
+  {% for product in object_list %}
+  
+   
+  	<a href="{%url 'product_list'%}{{product.slug}}">
+    <div class="col-md-4">
+    	<img style="max-height: 200px; max-width: 200px;" src="{% static ""%}{{ product.image}}" alt="My image"/>
+    <div class="product_list_item_title">
+    		{{ product.name }}
+    			
+    </div>
+    
+    <div class="product_list_item_price">
+    		<i class="fa fa-usd"></i> {{ product.unit_price }}
+	</div>
+	<div>
+		
+
+	</div>
+    	
+    </div>
+    </a>
+	{%endfor%}
+ 
+ 
+
+
+
+{% endblock %}
+
+

@@ -1,0 +1,10 @@
+{%if cart.cart.is_empty %}
+                
+                
+                {%include 'cart/cart_empty.html' %}
+
+ {%else %}
+                
+                {%include 'cart/cart_table.html' %}
+
+{%endif%}
