@@ -99,13 +99,12 @@ WSGI_APPLICATION = 'shop_lite.wsgi.application'
 
 DATABASES = {
 'default': {
-    'ENGINE': 'django.db.backends.mysql', 
-    'NAME': 'shop_lite',
-    'USER': 'root',
-    'PASSWORD': 'shaun44371!',
-    'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-    'PORT': '3306',
-    'TEST' : { 'NAME':'SHOP_AGAIN'}
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'timepiece',
+        'USER': '123sid',
+        'PASSWORD': 'hello',
+        'HOST': '192.168.1.5',
+        'PORT': '5432',
     }
 }
 
