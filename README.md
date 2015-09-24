@@ -1,4 +1,4 @@
-# Django_Shop_Lite
+# Django Shop Lite
 Django Shop Lite - A light weight shop using Django
 
 To install 
