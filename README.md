@@ -18,3 +18,21 @@ Configure settings.py with your DB settings
     python manage.py migrate 
     pthon manage.py runserver 
   
+
+## Screenshots
+
+
+### Product List
+![product_list]
+
+### Product Detail
+![product_detail]
+
+### Cart
+![cart]
+
+### Checkout 1
+![Checkout1]
+
+### Checkout 2
+![Checkout2]
