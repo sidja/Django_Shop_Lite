@@ -36,3 +36,11 @@ Configure settings.py with your DB settings
 
 ### Checkout 2
 ![Checkout2]
+
+
+
+[product_list]: https://dl.dropboxusercontent.com/u/4318926/django_shop_lite/product_list.png
+[product_detail]: https://dl.dropboxusercontent.com/u/4318926/django_shop_lite/product_detail.png
+[cart]: https://dl.dropboxusercontent.com/u/4318926/django_shop_lite/cart.PNG
+[Checkout1]: https://dl.dropboxusercontent.com/u/4318926/django_shop_lite/Checkout1.PNG
+[Checkout2]: https://dl.dropboxusercontent.com/u/4318926/django_shop_lite/Checkout2.PNG
