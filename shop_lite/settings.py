@@ -99,12 +99,13 @@ WSGI_APPLICATION = 'shop_lite.wsgi.application'
 
 DATABASES = {
 'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'timepiece',
-        'USER': '123sid',
-        'PASSWORD': 'hello',
-        'HOST': '192.168.1.5',
-        'PORT': '5432',
+  
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('DATABASE_NAME', 'djshoplite'),
+        'USER': os.getenv('DATABASE_USER', 'djshoplite'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
+        'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
+        'PORT': os.getenv('DATABASE_PORT', '5432'),
     }
 }
 
